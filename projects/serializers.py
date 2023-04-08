@@ -11,12 +11,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'password':{'write_only': True}
         }
 
-    def validate(self, attrs):
+    '''def validate(self, attrs):
         password = attrs.get('password')
         password2 = attrs.get('password2')
         if password != password2:
             raise serializers.ValidationError('Password and Confirm Password does not match')
-        return attrs
+        return attrs'''
     
     def create(self, validate_data):
         return MyUser.objects.create_user(**validate_data)
@@ -26,3 +26,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
         fields = ['username', 'password']
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = ['id', 'username', 'email', 'name']
