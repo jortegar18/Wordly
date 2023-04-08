@@ -1,8 +1,8 @@
-from rest_framework import routers
-from .api import ProjectViewSet
+from django.urls import path, include
+from projects.views import UserRegistrationView, UserLoginView
 
-router = routers.DefaultRouter()
 
-router.register('api/projects', ProjectViewSet, 'projects')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('register/', UserRegistrationView.as_view(), name='register'),
+    path('login/', UserLoginView.as_view(), name='login')
+]

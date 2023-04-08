@@ -1,11 +1,28 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from .models import Project
+from .models import MyUser
 
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    #Confirmacion de password en el Registration Request
+    #password2 = serializers.CharField(style={'input_type':'password'}, write_only = True)
+    class Meta:        
+        model = MyUser
+        fields = ['username','name','email','date_of_birth','genre','password']
+        extra_kwargs={
+            'password':{'write_only': True}
+        }
 
-class ProjectSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        password = attrs.get('password')
+        password2 = attrs.get('password2')
+        if password != password2:
+            raise serializers.ValidationError('Password and Confirm Password does not match')
+        return attrs
+    
+    def create(self, validate_data):
+        return MyUser.objects.create_user(**validate_data)
+    
+class UserLoginSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()
     class Meta:
-        model = Project
-        fields = ('id','title', 'description', 'technology', 'created_at')
-        read_only_fields = ('created_at', )
-        
+        model = MyUser
+        fields = ['username', 'password']
