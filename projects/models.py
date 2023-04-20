@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-
+'''
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -121,3 +121,45 @@ class Tutor(MyUser):
     languages = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
     payment_methods = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
     availability = models.TextField()
+
+    #objects = MyUserManager()
+
+
+class Estudiante(MyUser):
+    LANGUAGE_CHOICES = [
+        ('english', 'English'),
+        ('spanish', 'Spanish'),
+        ('french', 'French'),
+        ('german', 'German'),
+        ('italian', 'Italian'),
+        ('portuguese', 'Portuguese'),
+        ('chinese', 'Chinese'),
+        ('japanese', 'Japanese'),
+        ('korean', 'Korean'),
+        ('arabic', 'Arabic'),
+        ('russian', 'Russian'),
+    ]
+
+    PAYMENT_CHOICES = [
+        ('credit_card', 'Credit Card'),
+        ('debit_card', 'Debit Card'),
+        ('paypal', 'PayPal'),
+        ('bank_transfer', 'Bank Transfer'),
+    ]
+
+    LANGUAGE_LEVEL = [
+        ('a1', 'A1'),
+        ('a2', 'A2'),
+        ('b1', 'B1'),
+        ('b2', 'B2'),
+        ('c1', 'C1'),
+        ('c2', 'C2')
+    ]
+
+
+    languages = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
+    level = models.CharField(max_length=20, choices=LANGUAGE_LEVEL)
+    payment_methods = models.CharField(max_length=20, choices=PAYMENT_CHOICES)'''
+
+    
+
