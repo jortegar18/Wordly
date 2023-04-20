@@ -77,6 +77,8 @@ class Student(CustomUser):
         ('c2', 'C2')
     ]
 
+    #profile_picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
+
     level = models.CharField(max_length=20, choices=LANGUAGE_LEVEL)
     
     language = models.CharField(choices=LANGUAGE_CHOICES,

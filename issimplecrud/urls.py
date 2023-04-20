@@ -22,6 +22,8 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('', include('profiles.urls')),
     path('', include('session.urls')),
+    path('', include('workexp.urls')),
+
 
 ]
 
