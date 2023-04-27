@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from database.models import CustomUser, Tutor, Student
+from database.models import CustomUser, Tutor, Student, Language
 from django.contrib.auth.hashers import make_password, check_password
 
 #CustomUserSerializer
@@ -7,23 +7,35 @@ from django.contrib.auth.hashers import make_password, check_password
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'user_type']
+        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'user_type', 'language']
 
 
 # Tutor Serializer
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Tutor
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'language', 'payment']
+        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment']
 
 # Student Serializer
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Student
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'language', 'level', 'payment']
+        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'language', 'payment','expire_date','ccv', 'password']
+
+
+        
+    
+#language Serializer
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = ['name', 'level']
 
 # Register Tutor Serializer
 class RegisterTutorSerializer(serializers.ModelSerializer):
+
+    language = serializers.PrimaryKeyRelatedField(many=True, queryset=True )
     class Meta:
         model=Tutor
         fields=['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'language', 'payment', 'password']
@@ -48,7 +60,7 @@ class RegisterTutorSerializer(serializers.ModelSerializer):
 class RegisterStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Student
-        fields=['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'language', 'level', 'payment', 'password']
+        fields=['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'language', 'payment','expire_date','ccv', 'password']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):
@@ -60,8 +72,9 @@ class RegisterStudentSerializer(serializers.ModelSerializer):
             gender=validated_data['gender'],
             birthday=validated_data['birthday'],
             language=validated_data['language'],
-            level=validated_data['level'],
             payment=validated_data['payment'],
+            expire_date=validated_data['expire_date'],
+            ccv=validated_data['ccv'],         
             user_type="Student",
             password=validated_data['password']
         )

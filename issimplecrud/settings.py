@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'database',
     'authentication',
     'profiles',
+    'language',
+    'workexp',
     #'projects',
     'knox',
     'corsheaders',
