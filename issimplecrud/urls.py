@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('session.urls')),
     path('', include('language.urls')),
     path('', include('workexp.urls')),
+    path('', include('search.urls'))
 ]
 

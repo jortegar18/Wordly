@@ -14,10 +14,19 @@ def get_language(request):
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-def get_language_by_tutor(request):
+def get_language_by_user(request):
 
     if request.user.is_authenticated:
-        language = Language.objects.filter(tutor = request.user.id)
+        language = Language.objects.filter(user = request.user.id)
+        language_serializer = LanguageSerializer(language, many = True)
+        return Response(language_serializer.data, status = status.HTTP_200_OK)
+    return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_user_by_language(request):
+
+    if request.user.is_authenticated:
+        language = Language.objects.filter(user = request.user.id)
         language_serializer = LanguageSerializer(language, many = True)
         return Response(language_serializer.data, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)

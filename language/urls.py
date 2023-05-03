@@ -3,7 +3,7 @@ from language.api import *
 
 urlpatterns = [
     path('api/languages/', get_language, name = "api_get_alllanguages"),
-    path('api/my-languages/', get_language, name = "api_get_my_language"),
+    path('api/my-languages/', get_language_by_user, name = "api_get_my_language"),
     path('api/languages/create-language', insert_language, name = "api_insert_language"),
     path('api/languages/language/<int:id>/update', update_language, name = "api_update_language"),
     path('api/languages/language/<int:id>/delete', delete_language, name = "api_delete_language"),

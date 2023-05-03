@@ -7,38 +7,11 @@ from django.core.validators import MaxValueValidator
 
 # Create your models here.
 
-class Language(models.Model):
-
-    LANGUAGE_CHOICES = [
-        ('english', 'English'),
-        ('spanish', 'Spanish'),
-        ('french', 'French'),
-        ('german', 'German'),
-        ('italian', 'Italian'),
-        ('portuguese', 'Portuguese'),
-        ('chinese', 'Chinese'),
-        ('japanese', 'Japanese'),
-        ('korean', 'Korean'),
-        ('arabic', 'Arabic'),
-        ('russian', 'Russian'),
-    ]
-
-    LANGUAGE_LEVEL = [
-        ('a1', 'A1'),
-        ('a2', 'A2'),
-        ('b1', 'B1'),
-        ('b2', 'B2'),
-        ('c1', 'C1'),
-        ('c2', 'C2')
-    ]
-
-    name = models.CharField(choices=LANGUAGE_CHOICES, max_length=16)
-    level = models.CharField(max_length=20, choices=LANGUAGE_LEVEL)
-
-    def __str__(self):
-        return '%s: %s' % (self.name, self.level)
-
 class CustomUser(AbstractUser):
+
+    first_name = None
+
+
     MALE = "M"
     FEMALE = "F"
     OTHER = "O"
@@ -52,14 +25,13 @@ class CustomUser(AbstractUser):
         
         verbose_name = 'User'
     username = models.CharField(max_length=40, unique=True, default='')
+    email = models.EmailField(max_length=254, unique=True)
     name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    created_at = models.DateField(auto_now_add=True)
     # Type Identification for all users
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
-    language = models.ForeignKey(Language, on_delete=models.DO_NOTHING)
     # Fields for tutor
 
     # Fields for student
@@ -125,3 +97,34 @@ class StudentRequest(models.Model):
     tutor = models.ManyToManyField(Tutor, related_name="TutorSolicitado")
 
 
+class Language(models.Model):
+
+    LANGUAGE_CHOICES = [
+        ('english', 'English'),
+        ('spanish', 'Spanish'),
+        ('french', 'French'),
+        ('german', 'German'),
+        ('italian', 'Italian'),
+        ('portuguese', 'Portuguese'),
+        ('chinese', 'Chinese'),
+        ('japanese', 'Japanese'),
+        ('korean', 'Korean'),
+        ('arabic', 'Arabic'),
+        ('russian', 'Russian'),
+    ]
+
+    LANGUAGE_LEVEL = [
+        ('a1', 'A1'),
+        ('a2', 'A2'),
+        ('b1', 'B1'),
+        ('b2', 'B2'),
+        ('c1', 'C1'),
+        ('c2', 'C2')
+    ]
+
+    name = models.CharField(choices=LANGUAGE_CHOICES, max_length=16)
+    level = models.CharField(max_length=20, choices=LANGUAGE_LEVEL)
+    user = models.ForeignKey(CustomUser, related_name='languages', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return '%s: %s' % (self.name, self.level)
