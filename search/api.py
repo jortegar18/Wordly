@@ -17,7 +17,7 @@ def get_tutors(request):
 @api_view(['GET'])
 def tutors_by_language(request):
     if request.user.is_authenticated:
-        tutors = CustomUser.objects.filter(user_type = "Tutor", languages__name=request.data['name'])
+        tutors = CustomUser.objects.filter(user_type = "Tutor", languages__name=request.data['name']).distinct()
         tutors_serializer = TutorSerializer(tutors, many = True)
         return Response(tutors_serializer.data, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
