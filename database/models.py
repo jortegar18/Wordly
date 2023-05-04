@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.db.models.deletion import CASCADE
 from django.utils import timezone
-from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator
 
 # Create your models here.
