@@ -6,4 +6,8 @@ class TutorSerializer(serializers.HyperlinkedModelSerializer):
         model = CustomUser
         fields = ['username', 'email', 'name']
 
+class StudentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'name']
 

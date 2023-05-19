@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'profiles',
     'language',
     'workexp',
+    'blogs',
     #'projects',
     'knox',
     'corsheaders',
