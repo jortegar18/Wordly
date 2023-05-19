@@ -14,7 +14,7 @@ class CustomUserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
-
+    
 
 @api_view(['POST'])
 def updatePersonalDataTutor(request):
@@ -35,3 +35,4 @@ def updatePersonalDataStudent(request):
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response({"message": "Primero debe iniciar sesion"}, status=status.HTTP_400_BAD_REQUEST)
+
