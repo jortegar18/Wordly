@@ -22,16 +22,6 @@ def get_language_by_user(request):
         return Response(language_serializer.data, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-def get_user_by_language(request):
-
-    if request.user.is_authenticated:
-        language = Language.objects.filter(user = request.user.id)
-        language_serializer = LanguageSerializer(language, many = True)
-        return Response(language_serializer.data, status = status.HTTP_200_OK)
-    return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['POST'])
 def insert_language(request):
     if request.user.is_authenticated:
@@ -63,5 +53,5 @@ def delete_language(request, id):
     if request.user.is_authenticated:  
         language = Language.objects.filter(id = id).first()
         language.delete()
-        return Response({"message":"Sesion eliminada correctamente"}, status = status.HTTP_200_OK)
+        return Response({"message":"Idioma eliminado correctamente"}, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
