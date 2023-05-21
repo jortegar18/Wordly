@@ -121,7 +121,7 @@ class Language(models.Model):
         ('c2', 'C2')
     ]
 
-    name = models.CharField(choices=LANGUAGE_CHOICES, max_length=16)
+    name = models.CharField(max_length=16, choices=LANGUAGE_CHOICES)
     level = models.CharField(max_length=20, choices=LANGUAGE_LEVEL)
     user = models.ForeignKey(CustomUser, related_name='languages', on_delete=models.SET_NULL, blank=True, null=True)
 

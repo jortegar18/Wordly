@@ -12,7 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class LanguageSerializer(serializers.ModelSerializer):
-  
+    
+    #user = serializers.CharField(source='user.id', read_only=True)
 
     class Meta:
         model = Language
