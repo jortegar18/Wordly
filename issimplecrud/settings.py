@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'language',
     'workexp',
     'blogs',
+    'payment',
     #'projects',
     'knox',
     'corsheaders',

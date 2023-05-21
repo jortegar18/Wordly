@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include('language.urls')),
     path('', include('workexp.urls')),
     path('', include('search.urls')),
-    path('', include('blogs.urls'))
+    path('', include('blogs.urls')),
+    path('', include('payment.urls'))
+
 ]
 

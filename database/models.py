@@ -59,6 +59,16 @@ class Work_Experience(models.Model):
     position = models.CharField(max_length=256)
     lenght = models.IntegerField()
 
+class Paymenth_Method(models.Model):
+    
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    expire_date = models.DateField()
+    ccv = models.IntegerField(validators=[MaxValueValidator(999)])
+
+    def get_expire_date(self, obj):
+        return obj.expire_date.strftime("%Y-%m")
+
 class Session(models.Model):
 
     date = models.DateTimeField()
