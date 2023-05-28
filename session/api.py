@@ -34,7 +34,7 @@ def get_session_by_id(request, id):
 @api_view(['POST'])
 def insert_session(request):
     if request.user.is_authenticated:
-        request.data["tutor"] = request.user.id
+        request.data["student"] = request.user.id
         sessions_serializer = SessionSerializer(data = request.data)
         if sessions_serializer.is_valid():
             sessions_serializer.save()

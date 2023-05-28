@@ -28,7 +28,7 @@ def get_language_by_user(request):
 @permission_classes([IsAuthenticated])
 def insert_language(request):
     if request.user.is_authenticated:
-        request.data._mutable=True
+        #request.data._mutable=True
         request.data["user"] = request.user.id
         language_serializer = LanguageSerializer(data = request.data)
         if language_serializer.is_valid():
@@ -38,7 +38,7 @@ def insert_language(request):
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(["PUT"])
+@api_view(["POST"])
 def update_language(request, id):
 
     if request.user.is_authenticated:  
