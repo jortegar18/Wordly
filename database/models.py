@@ -62,7 +62,7 @@ class Work_Experience(models.Model):
 class Paymenth_Method(models.Model):
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    number = models.IntegerField()
+    number = models.BigIntegerField()
     expire_date = models.DateField()
     ccv = models.IntegerField(validators=[MaxValueValidator(999)])
 

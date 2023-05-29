@@ -15,10 +15,18 @@ from datetime import timedelta
 
 import os
 import dj_database_url
+import environ
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
 ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -38,7 +46,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -51,7 +59,6 @@ INSTALLED_APPS = [
     'workexp',
     'blogs',
     'payment',
-    #'projects',
     'knox',
     'corsheaders',
     'rest_framework',
@@ -102,11 +109,15 @@ WSGI_APPLICATION = 'issimplecrud.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    'default' : dj_database_url.parse(env('DATABASE_URL'))
+}
+
+'''DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3',        
         conn_max_age=600    
     )
-}
+}'''
 
 '''DATABASES = {
     'default': {
