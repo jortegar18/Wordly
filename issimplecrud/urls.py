@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include('workexp.urls')),
     path('', include('search.urls')),
     path('', include('blogs.urls')),
+    path('', include('availability.urls')),
     path('', include('payment.urls'))
-
 ]
 
