@@ -28,7 +28,7 @@ def get_language_by_user(request):
 @permission_classes([IsAuthenticated])
 def insert_language(request):
     if request.user.is_authenticated:
-        #request.data._mutable=True
+        request.data._mutable=True
         request.data["user"] = request.user.id
         language_serializer = LanguageSerializer(data = request.data)
         if language_serializer.is_valid():

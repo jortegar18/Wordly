@@ -34,6 +34,7 @@ def get_payment_by_id(request, id):
 
 @api_view(['POST'])
 def insert_payment(request):
+    request.data._mutable=True
     if request.user.is_authenticated:
         request.data["user"] = request.user.id
         
@@ -57,7 +58,7 @@ def update_payment(request, id):
         return Response(payment_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(["DELETE"])
+@api_view(["POST"])
 def delete_payment(request, id):
 
     if request.user.is_authenticated:  
