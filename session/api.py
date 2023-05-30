@@ -33,6 +33,7 @@ def get_session_by_id(request, id):
 
 @api_view(['POST'])
 def insert_session(request):
+    request.data._mutable=True
     if request.user.is_authenticated:
         request.data["student"] = request.user.id
         sessions_serializer = SessionSerializer(data = request.data)
@@ -42,7 +43,7 @@ def insert_session(request):
         return Response(sessions_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(["PUT"])
+@api_view(["POST"])
 def update_session(request, id):
 
     if request.user.is_authenticated:  
