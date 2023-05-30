@@ -13,11 +13,11 @@ class AvailabilitySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     
     availability = AvailabilitySerializer(many=True, read_only=True)
-    #language = serializers.StringRelatedField(many=True)
+    
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'name', 'availability']
+        fields = ['id', 'username', 'email', 'name', 'cost', 'availability']
 
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):
