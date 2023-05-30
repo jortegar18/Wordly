@@ -16,10 +16,11 @@ class CustomUserAPI(generics.RetrieveAPIView):
         return self.request.user
     
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def updatePersonalDataTutor(request):
     if request.user.is_authenticated:
         user_serializer = TutorSerializer(request.user, data=request.data)
+        print(request.data)
         if user_serializer.is_valid():
             user_serializer.save()
             return Response(user_serializer.data, status=status.HTTP_200_OK)

@@ -31,6 +31,7 @@ class CustomUser(AbstractUser):
     # Type Identification for all users
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
+    description = models.CharField(max_length=250)
     # Fields for tutor
 
     # Fields for student
@@ -40,7 +41,8 @@ class CustomUser(AbstractUser):
     
 class Tutor(CustomUser):
 
-    description = models.CharField(max_length=250, default='')
+    
+    cost = models.CharField(max_length=256)
     payment = models.IntegerField(default='0000000000000000')
     expire_date = models.DateField(default=timezone.now, null=True)
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
@@ -54,7 +56,7 @@ class Student(CustomUser):
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
 
 class Work_Experience(models.Model):
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor,related_name='work_exp', on_delete=models.CASCADE)
     company = models.CharField(max_length=256)
     position = models.CharField(max_length=256)
     lenght = models.IntegerField()
@@ -62,7 +64,7 @@ class Work_Experience(models.Model):
 class Paymenth_Method(models.Model):
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    number = models.BigIntegerField()
+    number = models.CharField(max_length=16, unique=True)
     expire_date = models.DateField()
     ccv = models.IntegerField(validators=[MaxValueValidator(999)])
 
@@ -139,7 +141,10 @@ class Language(models.Model):
         return '%s: %s' % (self.name, self.level)
     
 class Time_Av(models.Model):
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, related_name='availability', on_delete=models.CASCADE)
     day_of_week = models.IntegerField()  # 0 para lunes, 1 para martes, etc.
     start_time = models.TimeField()
     end_time = models.TimeField()
+
+    def __str__(self):
+        return '%s: %s: %s' % (self.day_of_week, self.start_time, self.end_time)

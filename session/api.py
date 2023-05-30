@@ -62,3 +62,39 @@ def delete_session(request, id):
         session.delete()
         return Response({"message":"Sesion eliminada correctamente"}, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def getVolunteerRequests(request):
+    if request.user.is_authenticated:
+        requestV = VolunteerRequest.objects.filter(organization=request.user)
+        request_serializer = VolunteerRequestSerializer(requestV, many=True)
+        return Response(request_serializer.data, status=status.HTTP_200_OK)
+    return Response({"message": "Primero debe iniciar sesion"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def create_turn(request, id):
+
+    if request.user.is_authenticated:
+        volunteer = CustomUser.objects.filter(id=request.user.id).first()
+        session = Session.objects.filter(id=id).first()
+        turn = Turn(available=request.data['available'], full=request.data['full'], start_time=request.data['start_time'], end_time=request.data['end_time'], session=session)
+        turn.save()
+        turn_serializer = TurnSerializer(session)
+        return Response(turn_serializer.data, status=status.HTTP_200_OK)
+    return Response({"message": "Primero debe iniciar sesion"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def insert_volunteer_in_session(request, id):
+
+    if request.user.is_authenticated:
+        volunteer = CustomUser.objects.filter(id = request.user.id).first()
+        if (volunteer == None):
+            return Response({"message": "El id ingresado no corresponde a un usuario validov"}, status = status.HTTP_400_BAD_REQUEST) 
+        session = Session.objects.filter(id = id).first()
+        session.volunteer.add(request.user.id)
+        session.save()
+        sessions_serializer = SessionSerializer(session)
+        return Response(sessions_serializer.data, status = status.HTTP_200_OK)
+    return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)

@@ -34,7 +34,7 @@ def get_time_av_by_id(request, id):
 @api_view(['POST'])
 def insert_time_av(request):
     if request.user.is_authenticated:
-        request.data["tutor"] = request.user.id
+        request.data["user"] = request.user.id
         time_av_serializer = AvailabilitySerializer(data = request.data)
         if time_av_serializer.is_valid():
             time_av_serializer.save()
