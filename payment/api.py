@@ -37,7 +37,9 @@ def insert_payment(request):
     request.data._mutable=True
     if request.user.is_authenticated:
         request.data["user"] = request.user.id
+        
         payment_serializer = PaymenthSerializer(data = request.data)
+        print(request.data)
         if payment_serializer.is_valid():
             payment_serializer.save()
             return Response(payment_serializer.data, status = status.HTTP_200_OK)

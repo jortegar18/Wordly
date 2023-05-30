@@ -1,12 +1,29 @@
-from database.models import CustomUser, Tutor, Student, Language
+from database.models import CustomUser, Tutor, Time_Av
 from rest_framework import serializers
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+    
+class AvailabilitySerializer(serializers.ModelSerializer):
+    
+    
+
+    class Meta:
+        model = Time_Av
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    
+    availability = AvailabilitySerializer(many=True, read_only=True)
+    #language = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'name']
+        fields = ['id', 'username', 'email', 'name', 'availability']
+
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):
+
+    #availability = serializers.RelatedField(many=True, read_only=True)
+
     class Meta:
         model = Tutor
         fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment','expire_date','ccv', 'password']
