@@ -139,7 +139,7 @@ class Language(models.Model):
         return '%s: %s' % (self.name, self.level)
     
 class Time_Av(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     day_of_week = models.IntegerField()  # 0 para lunes, 1 para martes, etc.
     start_time = models.TimeField()
     end_time = models.TimeField()
