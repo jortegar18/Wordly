@@ -32,6 +32,8 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
+    cost = models.CharField(max_length=256)
+    calification = models.CharField(max_length=10)
     # Fields for tutor
 
     # Fields for student
@@ -42,7 +44,7 @@ class CustomUser(AbstractUser):
 class Tutor(CustomUser):
 
     
-    cost = models.CharField(max_length=256)
+    
     payment = models.IntegerField(default='0000000000000000')
     expire_date = models.DateField(default=timezone.now, null=True)
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)

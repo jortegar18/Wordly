@@ -1,6 +1,11 @@
 from database.models import CustomUser, Tutor, Time_Av
 from rest_framework import serializers
 
+class TutorSerializer2(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = Tutor
+        fields = ['cost', 'calification']
     
 class AvailabilitySerializer(serializers.ModelSerializer):
     
@@ -17,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'name', 'availability']
+        fields = ['id', 'username', 'email', 'name', 'last_name', 'availability', 'cost', 'calification']
 
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):
