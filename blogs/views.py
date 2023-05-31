@@ -28,6 +28,7 @@ def getSoloBlog(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def postBlog(request):
+    request.data._mutable=True
     data = request.data
     blog = Blog.objects.create(
         user = request.user,

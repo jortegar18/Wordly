@@ -16,7 +16,7 @@ class CustomUserAPI(generics.RetrieveAPIView):
         return self.request.user
     
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def updatePersonalDataTutor(request):
     if request.user.is_authenticated:
         user_serializer = TutorSerializer(request.user, data=request.data)
