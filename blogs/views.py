@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import BlogSerializer
+from .serializers import BlogSerializer, CommentSerializer
 from .models import Blog, Comment
 from database.models import CustomUser
 
@@ -76,4 +76,5 @@ def comment(request, pk):
     )
     comments = blog.comment_set.all()
     blog.save()
-    return Response('Comment added!!')
+    serializer = CommentSerializer(comment, many=False)
+    return Response(serializer.data)
