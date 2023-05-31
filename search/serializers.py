@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'name', 'cost', 'availability']
+        fields = ['id', 'username', 'email', 'name', 'availability']
 
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):
