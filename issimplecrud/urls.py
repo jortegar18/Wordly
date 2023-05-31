@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('search.urls')),
     path('', include('blogs.urls')),
     path('', include('availability.urls')),
+    path('', include('chat.urls')),
     path('', include('payment.urls'))
 ]
 

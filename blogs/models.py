@@ -6,6 +6,7 @@ from database.models import CustomUser
 
 class Blog(models.Model):
     body = models.CharField(max_length=100)
+    description = models.CharField(max_length=256)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
 

@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'workexp',
     'blogs',
     'payment',
+    'availability',
+    'chat',
     'knox',
     'corsheaders',
     'rest_framework',
