@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+'''from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http.response import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
@@ -66,3 +66,4 @@ def message_view(request, sender, receiver):
                        'receiver': User.objects.get(id=receiver),
                        'messages': Message.objects.filter(sender_id=sender, receiver_id=receiver) |
                                    Message.objects.filter(sender_id=receiver, receiver_id=sender)})
+'''
