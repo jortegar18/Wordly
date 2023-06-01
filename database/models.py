@@ -45,7 +45,7 @@ class Tutor(CustomUser):
 
     
     
-    payment = models.IntegerField(default='0000000000000000')
+    payment = models.CharField(default='0000000000000000')
     expire_date = models.DateField(default=timezone.now, null=True)
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
 
