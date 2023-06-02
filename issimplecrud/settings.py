@@ -71,9 +71,9 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -193,10 +193,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'database.CustomUser'
 
-#CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_ALL_ORIGINS
 #CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = ['*']
-#CORS_ORIGIN_WHITELIST = ('http://localhost:8000', 'http://127.0.0.1:8000',)
+CORS_ALLOWED_ORIGINS = [
+    "https://wordly-zgzi.onrender.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:8000",
+]
+CORS_ORIGIN_WHITELIST = [
+     "http://localhost:8080",
+]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://wordly-zgzi.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://wordly-zgzi.onrender.com",
+]
