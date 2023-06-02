@@ -35,7 +35,7 @@ def tutors_by_language(request):
 def tutor_by_id(request):
     if request.user.is_authenticated:
         tutors = CustomUser.objects.filter(user_type = "Tutor", id=request.data['id'])
-        tutors_serializer = TutorSerializer(tutors, many = True)
+        tutors_serializer = UserSerializer(tutors, many = True)
         return Response(tutors_serializer.data, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 
@@ -43,7 +43,7 @@ def tutor_by_id(request):
 def student_by_id(request):
     if request.user.is_authenticated:
         students = CustomUser.objects.filter(user_type = "Student", id=request.data['id'])
-        students_serializer = StudentSerializer(tutors, many = True)
+        students_serializer = StudentSerializer(students, many = True)
         return Response(students_serializer.data, status = status.HTTP_200_OK)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)
 

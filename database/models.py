@@ -58,10 +58,15 @@ class Student(CustomUser):
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
 
 class Work_Experience(models.Model):
-    tutor = models.ForeignKey(Tutor,related_name='work_exp', on_delete=models.CASCADE)
+    tutor = models.ForeignKey(CustomUser, related_name='work_exp', on_delete=models.CASCADE)
     company = models.CharField(max_length=256)
     position = models.CharField(max_length=256)
     lenght = models.IntegerField()
+
+    def __str__(self):
+        return '%s: %s: %s' % (self.company, self.position, self.lenght)
+
+    
 
 class Paymenth_Method(models.Model):
     
