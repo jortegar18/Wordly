@@ -32,6 +32,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
+    profile_picture = models.ImageField('Image', upload_to='pp/', max_length=255, null=True, blank=True)
     cost = models.CharField(max_length=256, null=True)
     calification = models.CharField(max_length=10, null=True)
     # Fields for tutor
@@ -39,7 +40,7 @@ class CustomUser(AbstractUser):
     # Fields for student
    
     def __str__(self):
-        return str(self.name)
+        return str(self.email)
     
 class Tutor(CustomUser):
 
