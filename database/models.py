@@ -33,8 +33,8 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
-    profile_picture = CloudinaryField('Image')
-    file = CloudinaryField(resource_type='auto')
+    profile_picture = CloudinaryField('Image', null=True)
+    file = CloudinaryField(resource_type='auto', null=True)
     cost = models.CharField(max_length=256, null=True)
 
     # Fields for tutor
