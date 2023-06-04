@@ -33,6 +33,7 @@ class CustomUser(AbstractUser):
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
     profile_picture = models.ImageField('Image', upload_to='pp/', max_length=255, null=True, blank=True)
+    file = models.FileField('File', upload_to='files/', max_length=255, null=True, blank=True)
     cost = models.CharField(max_length=256, null=True)
 
     # Fields for tutor
