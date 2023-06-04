@@ -228,3 +228,7 @@ cloudinary.config(
      api_key = "738141884438293",
      api_secret = "jVFda0Zf8IAxhCApjHEBDmwRgCg",
 )
+
+CLOUDINARY_ROOT_URL = [
+     "https://res.cloudinary.com/dy1a6wx8l/"
+]

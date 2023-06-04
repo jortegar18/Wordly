@@ -4,6 +4,7 @@ from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from cloudinary.models import CloudinaryField
+from issimplecrud.settings import CLOUDINARY_ROOT_URL
 
 # Create your models here.
 
@@ -34,7 +35,7 @@ class CustomUser(AbstractUser):
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
     profile_picture = CloudinaryField('Image', null=True)
-    file = CloudinaryField(resource_type='auto', null=True)
+    file = CloudinaryField(resource_type='PDF', null=True)
     cost = models.CharField(max_length=256, null=True)
 
     # Fields for tutor
@@ -43,6 +44,9 @@ class CustomUser(AbstractUser):
    
     def __str__(self):
         return str(self.email)
+    
+    def get_image_url(self):
+        return'{}{}'.format("https://res.cloudinary.com/dy1a6wx8l/", self.profile_picture)
     
 class Tutor(CustomUser):
 
