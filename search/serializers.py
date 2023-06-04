@@ -1,4 +1,4 @@
-from database.models import CustomUser, Tutor, Time_Av, Work_Experience
+from database.models import CustomUser, Tutor, Time_Av, Work_Experience, Calification
 from rest_framework import serializers
 
     
@@ -14,15 +14,22 @@ class WorkExperienceSerializer(serializers.ModelSerializer):
         model = Work_Experience
         fields = '__all__'
 
+class CalificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Calification
+        fields = '__all__'
+
 class UserSerializer(serializers.ModelSerializer):
     
     availability = AvailabilitySerializer(many=True, read_only=True)
     work_exp = WorkExperienceSerializer(many = True, read_only=True)
+    calification = CalificationSerializer(many=True, read_only = True)
     
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'name', 'last_name','availability', 'work_exp','cost', 'calification']
+        fields = ['id', 'username', 'email', 'name', 'last_name', 'profile_picture','availability', 'work_exp','cost', 'calification']
 
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):

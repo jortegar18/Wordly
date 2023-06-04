@@ -34,7 +34,7 @@ class CustomUser(AbstractUser):
     description = models.CharField(max_length=250)
     profile_picture = models.ImageField('Image', upload_to='pp/', max_length=255, null=True, blank=True)
     cost = models.CharField(max_length=256, null=True)
-    calification = models.CharField(max_length=10, null=True)
+
     # Fields for tutor
 
     # Fields for student
@@ -160,3 +160,28 @@ class Time_Av(models.Model):
 
     def __str__(self):
         return '%s: %s: %s' % (self.day_of_week, self.start_time, self.end_time)
+
+class Calification(models.Model):
+    user = models.ForeignKey(CustomUser, related_name='calification', on_delete=models.CASCADE)
+
+    one = models.PositiveIntegerField(default=0, null=True, blank=True)
+    two = models.PositiveIntegerField(default=0, null=True, blank=True)
+    three = models.PositiveIntegerField(default=0, null=True, blank=True)
+    four = models.PositiveIntegerField(default=0, null=True, blank=True)
+    five = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    class Meta:
+        ordering = ['user']
+
+    def __str__(self):
+        # Extraiga todos los valores y devuelva el valor máximo.
+        # Invierte este dictado si hay un empate y quieres la última clave.
+        rating_list = {
+            '1': self.one,
+            '2': self.two,
+            '3': self.three,
+            '4': self.four,
+            '5': self.five
+        }
+        return str(max(rating_list, key=rating_list.get))
+    

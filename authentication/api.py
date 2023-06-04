@@ -116,7 +116,7 @@ class ResetPasswordAPI(generics.GenericAPIView):
 
     serializer_class = serializers.ResetPasswordSerializer
 
-    def patch(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Verify token & encoded_pk and then reset the password.
         """
