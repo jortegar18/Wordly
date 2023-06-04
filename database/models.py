@@ -35,18 +35,19 @@ class CustomUser(AbstractUser):
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
     profile_picture = CloudinaryField('Image', null=True)
-    file = CloudinaryField(resource_type='PDF', null=True)
+    file = CloudinaryField(resource_type='auto', null=True)
+    video = CloudinaryField(resource_type = 'video', null = True)
     cost = models.CharField(max_length=256, null=True)
 
     # Fields for tutor
 
     # Fields for student
-   
+    
+    
     def __str__(self):
         return str(self.email)
     
-    def get_image_url(self):
-        return'{}{}'.format("https://res.cloudinary.com/dy1a6wx8l/", self.profile_picture)
+    
     
 class Tutor(CustomUser):
 
