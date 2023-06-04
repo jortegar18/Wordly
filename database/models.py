@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -32,8 +33,8 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
-    profile_picture = models.ImageField('Image', upload_to='pp/', max_length=255, null=True, blank=True)
-    file = models.FileField('File', upload_to='files/', max_length=255, null=True, blank=True)
+    profile_picture = CloudinaryField('Image')
+    file = CloudinaryField('File')
     cost = models.CharField(max_length=256, null=True)
 
     # Fields for tutor

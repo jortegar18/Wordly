@@ -1,7 +1,9 @@
 asgiref==3.6.0
 autopep8==2.0.1
 Brotli==1.0.9
+certifi==2023.5.7
 cffi==1.15.1
+cloudinary==1.33.0
 cryptography==39.0.2
 dj-database-url==1.2.0
 Django==4.1.7
@@ -18,7 +20,9 @@ pycodestyle==2.10.0
 pycparser==2.21
 PyJWT==2.6.0
 pytz==2022.7.1
+six==1.16.0
 sqlparse==0.4.3
 tomli==2.0.1
 tzdata==2022.7
+urllib3==1.26.16
 whitenoise==6.3.0

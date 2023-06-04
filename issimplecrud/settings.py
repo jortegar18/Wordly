@@ -17,6 +17,9 @@ import os
 import dj_database_url
 import environ
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 
@@ -55,6 +58,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+    'cloudinary',
     'database',
     'authentication',
     'profiles',
@@ -216,4 +220,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://wordly-zgzi.onrender.com",
 ]
 
+#Cloudinary - Django integration
 
+cloudinary.config(
+     
+     cloud_name = "dy1a6wx8l",
+     api_key = "738141884438293",
+     api_secret = "jVFda0Zf8IAxhCApjHEBDmwRgCg",
+)
