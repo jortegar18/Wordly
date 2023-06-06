@@ -98,7 +98,7 @@ class Session(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     description = models.CharField(max_length=200)
-    calification = models.CharField(max_length=5)
+    calification = models.CharField(max_length=5, null = True)
 
    
     SESSION_STATUS = [
