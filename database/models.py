@@ -69,6 +69,7 @@ class Student(CustomUser):
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
 
 class Work_Experience(models.Model):
+
     tutor = models.ForeignKey(CustomUser, related_name='work_exp', on_delete=models.CASCADE)
     company = models.CharField(max_length=256)
     position = models.CharField(max_length=256)
@@ -83,7 +84,6 @@ class Paymenth_Method(models.Model):
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-
     number = models.CharField(max_length=16, unique=True)
 
     expire_date = models.DateField()
@@ -94,10 +94,10 @@ class Paymenth_Method(models.Model):
 
 class Session(models.Model):
 
-    date = models.DateTimeField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    description = models.CharField(max_length=200)
+    date = models.DateTimeField(null=True)
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
+    description = models.CharField(max_length=200, null=True)
     calification = models.CharField(max_length=5, null = True)
 
    
@@ -175,6 +175,7 @@ class Time_Av(models.Model):
         return '%s: %s: %s' % (self.day_of_week, self.start_time, self.end_time)
 
 class Calification(models.Model):
+
     user = models.ForeignKey(CustomUser, related_name='calification', on_delete=models.CASCADE)
 
     one = models.PositiveIntegerField(default=0, null=True, blank=True)
