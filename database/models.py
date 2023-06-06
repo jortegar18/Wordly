@@ -12,6 +12,8 @@ class CustomUser(AbstractUser):
 
     first_name = None
 
+    def nameFile(instance, filename):
+     return '/'.join(['images', str(instance.name), filename])
 
     MALE = "M"
     FEMALE = "F"
@@ -34,7 +36,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=100)    
     birthday = models.DateField(default=timezone.now, null=True)
     description = models.CharField(max_length=250)
-    profile_picture = CloudinaryField('Image', null=True)
+    profile_picture = CloudinaryField(resource_type='image', null=True)
     file = CloudinaryField(resource_type='auto', null=True)
     video = CloudinaryField(resource_type = 'video', null = True)
     cost = models.CharField(max_length=256, null=True)
@@ -42,6 +44,7 @@ class CustomUser(AbstractUser):
     # Fields for tutor
 
     # Fields for student
+    
     
     
     def __str__(self):
@@ -61,7 +64,7 @@ class Student(CustomUser):
 
     #profile_picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
      
-    payment = models.IntegerField(default='0000000000000000')
+    payment = models.CharField(max_length=16, default='0000000000000000', null=True)
     expire_date = models.DateField(default=timezone.now, null=True)
     ccv = models.IntegerField(validators=[MaxValueValidator(999)], null=True)
 
@@ -110,6 +113,9 @@ class Session(models.Model):
 
     tutor = models.ForeignKey(Tutor, on_delete=models.DO_NOTHING, related_name="Tutor")    
     student = models.ForeignKey(Student, on_delete=models.DO_NOTHING, related_name="Student")
+
+    def __str__(self):
+        return '%s: %s: %s: %s' % (self.date, self.description, self.status, self.calification)
 
 class StudentRequest(models.Model):
 
