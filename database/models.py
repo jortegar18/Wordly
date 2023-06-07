@@ -95,8 +95,8 @@ class Paymenth_Method(models.Model):
 class Session(models.Model):
 
     date = models.DateTimeField(null=True)
-    start_time = models.TimeField(null=True)
-    end_time = models.TimeField(null=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     description = models.CharField(max_length=200, null=True)
     calification = models.CharField(max_length=5, null = True)
 

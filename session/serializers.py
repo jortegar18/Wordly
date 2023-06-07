@@ -11,4 +11,4 @@ class SessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Session
-        fields = ["status", "description", "calification"]
+        fields = "__all__"
