@@ -91,7 +91,7 @@ class PasswordReset(generics.GenericAPIView):
                 "reset-password",
                 kwargs={"encoded_pk": encoded_pk, "token": token},
             )
-            reset_link = f"localhost:8000{reset_url}"
+            reset_link = f"https://wordly-zgzi.onrender.com{reset_url}"
 
             # send the rest_link as mail to the user.
 
