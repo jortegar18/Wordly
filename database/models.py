@@ -50,6 +50,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return str(self.email)
     
+    def image_url(self):
+        return str(self.profile_picture)
+    
     
     
 class Tutor(CustomUser):
