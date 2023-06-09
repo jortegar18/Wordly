@@ -55,7 +55,7 @@ def insert_session(request):
         if sessions_serializer.is_valid():
             sessions_serializer.save()
             
-            current_site = 'http://127.0.0.1:8000'
+            '''current_site = 'http://127.0.0.1:8000'
             
             tutor_id = request.data['tutor']
             print(tutor_id)
@@ -64,7 +64,7 @@ def insert_session(request):
             data = {'email_body': email_body, 'to_email': to_email, 'email_subject': 'Verify your email'}
         
 
-            Util.send_email(data)
+            Util.send_email(data)'''
 
             return Response(sessions_serializer.data, status = status.HTTP_200_OK)
         return Response(sessions_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
