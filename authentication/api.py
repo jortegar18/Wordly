@@ -11,6 +11,8 @@ from database.models import CustomUser
 from . import serializers
 from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
+import jwt
+
 
 class RegisterTutorAPI(generics.GenericAPIView):
     serializer_class = RegisterTutorSerializer
@@ -20,25 +22,40 @@ class RegisterTutorAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         tutor = serializer.save()
 
-        current_site = get_current_site(request)
+        current_site = 'http://127.0.0.1:8000/'
         relativeLink = reverse('email-verify')
-        
-        absurl = 'http://'+current_site+relativeLink+"?token="+AuthToken.objects.create(tutor)[1]
-        email_body = 'Hi ' +tutor.username + 'Use link below to verify your email \n' + absurl
-        data = {'email_body': email_body, 'to_email': tutor.email, 'email_subject': 'Verify your email',}
+        token = AuthToken.objects.create(tutor)[1]
+        absurl = current_site+relativeLink+"?token="+ token
+        email_body = 'Hi ' + tutor.username + ' Use link below to verify your email \n' + absurl
+        print(tutor.email)
+        data = {'email_body': email_body, 'to_email': tutor.email, 'email_subject': 'Verify your email'}
         
 
         Util.send_email(data)
 
         return Response({
             "user": TutorSerializer(tutor, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(tutor)[1]
+            "token": token
         }) 
 
 
 class VerifyEmail(generics.GenericAPIView):
-    def get(self):
-        pass 
+    def get(self, request):
+        token = request.GET.get('token')
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms='HS256')
+            user = CustomUser.objects.get(id=payload['tutor_id'])
+            if not user.is_verified:
+                user.is_verified = True
+                user.save()
+                        
+            return Response({'email' : 'Succesfully activated'}, status=status.HTTP_200_OK)
+        
+        except jwt.ExpiredSignatureError as identifier:
+            return Response({'error' : 'Activation expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError as identifier:
+            return Response({'error' : 'Invalid Token'}, status=status.HTTP_400_BAD_REQUEST)  
+        
 
 class RegisterStudentAPI(generics.GenericAPIView):
     serializer_class = RegisterStudentSerializer

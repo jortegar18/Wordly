@@ -28,6 +28,7 @@ class CustomUser(AbstractUser):
         verbose_name = 'User'
     username = models.CharField(max_length=40, unique=True, default='')
     email = models.EmailField(max_length=254, unique=True)
+    is_verified = models.BooleanField(default=True)
     name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)

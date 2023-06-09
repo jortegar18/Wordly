@@ -54,20 +54,20 @@ class ResetPasswordSerializer(serializers.Serializer):
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'user_type']
+        fields = ['username', 'email','is_verified', 'name', 'last_name', 'gender', 'birthday', 'user_type']
 
 
 # Tutor Serializer
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Tutor
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment','expire_date','ccv', 'password']
+        fields = ['username', 'email','is_verified', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment','expire_date','ccv', 'password']
 
 # Student Serializer
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Student
-        fields = ['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'payment','expire_date','ccv', 'password']
+        fields = ['username', 'email', 'is_verified', 'name', 'last_name', 'gender', 'birthday', 'payment','expire_date','ccv', 'password']
 
 
         
@@ -86,13 +86,14 @@ class RegisterTutorSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Tutor
-        fields=['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment','expire_date','ccv', 'password']
+        fields=['username', 'email','is_verified', 'name', 'last_name', 'gender', 'birthday', 'description', 'payment','expire_date','ccv', 'password']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):
         tutor = Tutor.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
+            is_verified = False,
             name=validated_data['name'],
             last_name=validated_data['last_name'],
             gender=validated_data['gender'],
@@ -112,13 +113,14 @@ class RegisterStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Student
-        fields=['username', 'email', 'name', 'last_name', 'gender', 'birthday', 'payment','expire_date','ccv', 'password']
+        fields=['username', 'email', 'name','is_verified', 'last_name', 'gender', 'birthday', 'payment','expire_date','ccv', 'password']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):
         student = Student.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
+            is_verified = False,
             name=validated_data['name'],
             last_name=validated_data['last_name'],
             gender=validated_data['gender'],
