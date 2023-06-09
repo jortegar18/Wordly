@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from database.models import Session, CustomUser, Student, Tutor
 from session.serializers import SessionSerializer
+from .utils import Util
+from django.contrib.sites.shortcuts import get_current_site
 
 @api_view(['GET'])
 def get_sessions(request):
@@ -46,11 +48,24 @@ def insert_session(request):
     request.data._mutable=True
 
     if request.user.is_authenticated:
-
+        
         request.data["student"] = request.user.id
         sessions_serializer = SessionSerializer(data = request.data)
+        
         if sessions_serializer.is_valid():
             sessions_serializer.save()
+            
+            current_site = 'http://127.0.0.1:8000'
+            
+            tutor_id = request.data['tutor']
+            print(tutor_id)
+            email_body = 'Hi ' + CustomUser.objects.filter(id=tutor_id).values_list('username', flat=True) + 'A new session was added'
+            to_email = CustomUser.objects.values('email')
+            data = {'email_body': email_body, 'to_email': to_email, 'email_subject': 'Verify your email'}
+        
+
+            Util.send_email(data)
+
             return Response(sessions_serializer.data, status = status.HTTP_200_OK)
         return Response(sessions_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     return Response({"message": "Primero debe iniciar sesion"}, status = status.HTTP_400_BAD_REQUEST)

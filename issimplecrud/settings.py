@@ -35,7 +35,9 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = '77#b5#-afiuaikpgoqx^nrvoy(3ir9-7ix2wufe*%p1w%)-x+q'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -221,7 +223,7 @@ CLOUDINARY_ROOT_URL = [
      "https://res.cloudinary.com/dy1a6wx8l/"
 ]
 
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.gmail.com'

@@ -22,7 +22,7 @@ class RegisterTutorAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         tutor = serializer.save()
 
-        current_site = 'http://127.0.0.1:8000/'
+        current_site = 'http://127.0.0.1:8000'
         relativeLink = reverse('email-verify')
         token = AuthToken.objects.create(tutor)[1]
         absurl = current_site+relativeLink+"?token="+ token
@@ -43,7 +43,9 @@ class VerifyEmail(generics.GenericAPIView):
     def get(self, request):
         token = request.GET.get('token')
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms='HS256')
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms='HS512')
+            print(payload)
+
             user = CustomUser.objects.get(id=payload['tutor_id'])
             if not user.is_verified:
                 user.is_verified = True
