@@ -1,11 +1,12 @@
 from django.urls import path, include
-from .api import RegisterTutorAPI, TutorAPI, LoginAPI, StudentAPI,  RegisterStudentAPI   
+from .api import RegisterTutorAPI, TutorAPI, LoginAPI, StudentAPI,  RegisterStudentAPI, VerifyEmail
 from knox import views as knox_views
 from authentication import api
 
 urlpatterns = [
     path('api/auth', include('knox.urls')),
     path('api/auth/register_tutor', RegisterTutorAPI.as_view()),
+    path('api/auth/email_verify', VerifyEmail.as_view(), name='email-verify'),
     path('api/auth/register_student', RegisterStudentAPI.as_view()),
     path('api/auth/tutor', TutorAPI.as_view()),
     path('api/auth/student', StudentAPI.as_view()),

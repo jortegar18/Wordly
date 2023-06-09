@@ -9,6 +9,8 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from database.models import CustomUser   
 from . import serializers
+from .utils import Util
+from django.contrib.sites.shortcuts import get_current_site
 
 class RegisterTutorAPI(generics.GenericAPIView):
     serializer_class = RegisterTutorSerializer
@@ -17,10 +19,26 @@ class RegisterTutorAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         tutor = serializer.save()
+
+        current_site = get_current_site(request)
+        relativeLink = reverse('email-verify')
+        
+        absurl = 'http://'+current_site+relativeLink+"?token="+AuthToken.objects.create(tutor)[1]
+        email_body = 'Hi ' +tutor.username + 'Use link below to verify your email \n' + absurl
+        data = {'email_body': email_body, 'to_email': tutor.email, 'email_subject': 'Verify your email',}
+        
+
+        Util.send_email(data)
+
         return Response({
             "user": TutorSerializer(tutor, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(tutor)[1]
         }) 
+
+
+class VerifyEmail(generics.GenericAPIView):
+    def get(self):
+        pass 
 
 class RegisterStudentAPI(generics.GenericAPIView):
     serializer_class = RegisterStudentSerializer

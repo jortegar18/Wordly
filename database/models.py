@@ -12,8 +12,7 @@ class CustomUser(AbstractUser):
 
     first_name = None
 
-    def nameFile(instance, filename):
-     return '/'.join(['images', str(instance.name), filename])
+    
 
     MALE = "M"
     FEMALE = "F"
@@ -50,8 +49,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return str(self.email)
     
-    def image_url(self):
-        return str(self.profile_picture)
+
     
     
     

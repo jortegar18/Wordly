@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Blog, Comment, CustomUser
+from cloudinary.models import CloudinaryField
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username', read_only=True)
@@ -19,7 +20,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     comments = serializers.SerializerMethodField(read_only=True)
-    profile_picture = ImageSerializer(read_only=True)
+    profile_picture = ImageSerializer(read_only = True)
 
     class Meta:
         model = Blog
